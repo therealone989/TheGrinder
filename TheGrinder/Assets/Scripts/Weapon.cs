@@ -4,19 +4,23 @@ public class Weapon : MonoBehaviour
 {
 
     [SerializeField] float weaponRange;
+    [SerializeField] int weaponDamage = 5;
 
-    private bool db = true;
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            RaycastHit hit;
+        if (Input.GetKeyDown(KeyCode.Mouse0)) return;
 
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, weaponRange))
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, weaponRange))
+        {
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            if (enemyHealth)
             {
-                Debug.Log(hit.collider.gameObject.name);
+                enemyHealth.takeDamage(weaponDamage);
             }
+            Debug.Log(hit.collider.gameObject.name);
         }
     }
 }
