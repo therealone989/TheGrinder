@@ -105,7 +105,7 @@ public class BowController : MonoBehaviour
         }
 
         // Spawnen des neuen Pfeils an der Kamera-Mitte
-        GameObject newArrow = Instantiate(arrowPrefab, Camera.main.transform.position + Camera.main.transform.forward * 2f, Quaternion.identity);
+        GameObject newArrow = Instantiate(arrowPrefab, Camera.main.transform.position + Camera.main.transform.forward * 0.8f, Quaternion.identity);
         newArrow.transform.rotation = Quaternion.identity; // Nur wenn nötig
 
         Rigidbody rb = newArrow.GetComponent<Rigidbody>();
