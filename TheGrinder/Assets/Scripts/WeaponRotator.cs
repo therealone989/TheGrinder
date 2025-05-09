@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class WeaponRotator : MonoBehaviour
 {
@@ -9,6 +9,6 @@ public class WeaponRotator : MonoBehaviour
         Vector3 camEuler = cameraRotationSource.eulerAngles;
 
         // Nur Y-Rotation folgen
-        transform.rotation = Quaternion.Euler(camEuler.x, camEuler.y, 0f);
+        transform.rotation = Quaternion.Euler(camEuler.x, camEuler.y,0f);
     }
 }
