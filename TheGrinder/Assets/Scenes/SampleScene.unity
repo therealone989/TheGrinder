@@ -1211,7 +1211,7 @@ GameObject:
   - component: {fileID: 662603961}
   m_Layer: 7
   m_Name: CRIT
-  m_TagString: Untagged
+  m_TagString: Crit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1569,7 +1569,7 @@ GameObject:
   - component: {fileID: 936732099}
   m_Layer: 7
   m_Name: CRIT
-  m_TagString: Untagged
+  m_TagString: Crit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2867,9 +2867,10 @@ GameObject:
   - component: {fileID: 1950073366}
   - component: {fileID: 1950073367}
   - component: {fileID: 1950073368}
+  - component: {fileID: 1950073369}
   m_Layer: 7
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2993,6 +2994,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startHealth: 20
   currentHealth: 0
+--- !u!65 &1950073369
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950073361}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1990220428
 GameObject:
   m_ObjectHideFlags: 0
