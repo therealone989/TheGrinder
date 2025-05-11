@@ -1,25 +1,36 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
 
-    public int startHealth = 20;
-    private int currentHealth;
+    public float startHealth;
+    private float currentHealth;
+
+    [SerializeField] private Image healthSprite;
+    [SerializeField] Canvas canv;
+
+    public void UpdateHealthBar(float currHealth, float maxHealth)
+    {
+        healthSprite.fillAmount = currHealth / maxHealth;
+    }
 
     void Awake()
     {
         currentHealth = startHealth;
     }
 
-    public void takeDamage(int weaponDamage)
+    public void takeDamage(float weaponDamage)
     {
         currentHealth -= weaponDamage;
+        UpdateHealthBar(currentHealth, startHealth);
         Debug.Log("HEALTH: " + currentHealth);
     }
 
-    public void takeCritDamage(int weaponDamage)
+    public void takeCritDamage(float weaponDamage)
     {
         currentHealth -= weaponDamage * 2;
+        UpdateHealthBar(currentHealth, startHealth);
         Debug.Log("CRIT AHHH");
     }
 
@@ -29,6 +40,8 @@ public class EnemyHealth : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        canv.transform.rotation = Quaternion.LookRotation(canv.transform.position - Camera.main.transform.position);
     }
 
 

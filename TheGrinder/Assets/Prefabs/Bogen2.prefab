@@ -397,11 +397,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7264c129a15c5bd4ebb0820a9a71227b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponScript: {fileID: 8724672303131133577}
   arrowPrefab: {fileID: 4378610775232126282, guid: 644f920aec15f4f45ba756fc958186dd, type: 3}
   arrowSpawnPoint: {fileID: 815169170346356541}
-  maxArrowForce: 25
-  shortCooldown: 2
+  drawDuration: 1
+  audioSource: {fileID: 0}
+  releaseClip: {fileID: 8300000, guid: b97acabe4a622f44fa9c18848944b23b, type: 3}
+  loadClip: {fileID: 8300000, guid: 421b4905e2dbdb5448eacde8e0af8c8b, type: 3}
 --- !u!95 &5070435131792719343
 Animator:
   serializedVersion: 7

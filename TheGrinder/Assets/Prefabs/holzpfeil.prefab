@@ -105,7 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 10
   critMultiplier: 2
-  isCancelled: 0
+  speed: 80
+  lifetime: 7
+  isSticky: 1
+  destroyOnImpact: 0
 --- !u!54 &1887419737586034293
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -129,9 +132,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!135 &4997741289142395801
 SphereCollider:

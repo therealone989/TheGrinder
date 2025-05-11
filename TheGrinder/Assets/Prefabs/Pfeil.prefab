@@ -104,7 +104,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseDamage: 5
   critMultiplier: 2
-  isCancelled: 0
+  speed: 80
+  lifetime: 7
+  isSticky: 1
+  destronOnImpact: 0
 --- !u!54 &8005808789404981316
 Rigidbody:
   m_ObjectHideFlags: 0

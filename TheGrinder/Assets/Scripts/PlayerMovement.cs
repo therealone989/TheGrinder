@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -49,6 +50,14 @@ public class PlayerMovement : MonoBehaviour
         air
     }
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource footStepAudioSource;
+    [SerializeField] private AudioClip footstep1;
+    [SerializeField] private AudioClip jumpSound;
+    
+
+
 
     private void Start()
     {
@@ -75,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         else
             rb.linearDamping = 0;
 
+        PlayFootstepSound();
     }
 
     private void FixedUpdate()
@@ -114,33 +124,32 @@ public class PlayerMovement : MonoBehaviour
 
     private void StateHandler()
     {
-
         // Mode - Crouching
-        if(Input.GetKey(crouchKey))
+        if (Input.GetKey(crouchKey))
         {
             state = MovementState.crouching;
             moveSpeed = crouchSpeed;
+            Debug.Log("Crouching");
         }
-
         // Mode - Sprinting
-        if(grounded && Input.GetKey(sprintKey))
+        else if (grounded && Input.GetKey(sprintKey))
         {
             state = MovementState.sprinting;
             moveSpeed = sprintSpeed;
         }
-
         // Mode - Walking
         else if (grounded)
         {
             state = MovementState.walking;
             moveSpeed = walkSpeed;
         }
-
+        // Mode - Air
         else
         {
             state = MovementState.air;
         }
     }
+
 
     private void MovePlayer()
     {
@@ -174,9 +183,52 @@ public class PlayerMovement : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+        // Sprung-Sound
+        if (audioSource != null && jumpSound != null)
+        {
+            audioSource.PlayOneShot(jumpSound);
+        }
     }
     private void ResetJump()
     {
         readyToJump = true;
     }
+
+    private void PlayFootstepSound()
+    {
+        bool isMoving = moveDirection.magnitude > 0.1f;
+
+        if (grounded && isMoving)
+        {
+            // Pitch anpassen, je nach Crouch-Zustand
+            float targetPitch = (state == MovementState.crouching) ? 0.6f : 1f;
+            float targetVolume = (state == MovementState.crouching) ? 0.08f : 0.12f;
+
+            if (!footStepAudioSource.isPlaying)
+            {
+                footStepAudioSource.pitch = targetPitch;
+                footStepAudioSource.volume = targetVolume;
+                footStepAudioSource.loop = true;
+                footStepAudioSource.Play();
+            }
+            else if (footStepAudioSource.pitch != targetPitch)
+            {
+                // Pitch aktualisieren, falls sich Zustand ändert
+                footStepAudioSource.pitch = targetPitch;
+                footStepAudioSource.volume = targetVolume;
+            }
+        }
+        else
+        {
+            if (footStepAudioSource.isPlaying)
+            {
+                footStepAudioSource.Stop();
+                footStepAudioSource.time = 0f; // optional zurücksetzen
+            }
+        }
+    }
+
+
+
 }
