@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerProjectile : MonoBehaviour
 {
@@ -24,15 +25,23 @@ public class PlayerProjectile : MonoBehaviour
         col = GetComponent<Collider>();
     }
 
+    private int currScene;
+
     private void Start()
     {
         rb.linearVelocity = transform.forward * speed;
+        currScene = SceneManager.GetActiveScene().buildIndex;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (hasHit) return;
         hasHit = true;
+
+        if(collision.collider.tag == "Random")
+        {
+            SceneManager.LoadScene(currScene +1);
+        }
 
         // Schaden zufügen, wenn Enemy getroffen
         var enemyHealth = collision.collider.GetComponentInParent<EnemyHealth>();
@@ -50,7 +59,12 @@ public class PlayerProjectile : MonoBehaviour
             rb.isKinematic = true;
             col.enabled = false;
             Destroy(rb);
-            transform.SetParent(collision.transform);
+            
+            if (collision.collider.tag == "Enemy" || collision.collider.tag == "Crit")
+            {
+                transform.SetParent(collision.transform);
+            }
+
             Destroy(gameObject, lifetime);
             return;
         }

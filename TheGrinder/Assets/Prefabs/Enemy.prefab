@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  attackRange: 20
+  attackRange: 10
   fireCooldown: 2
   projectilePrefab: {fileID: 3476315296005140711, guid: 441b9cd966b784349a8816879b767e8c, type: 3}
   shootPoint: {fileID: 852869258194475291}
@@ -256,6 +256,7 @@ MonoBehaviour:
   startHealth: 30
   healthSprite: {fileID: 8849588788490978755}
   canv: {fileID: 143402901132705633}
+  rewardGold: 15
 --- !u!65 &9187170717192858054
 BoxCollider:
   m_ObjectHideFlags: 0

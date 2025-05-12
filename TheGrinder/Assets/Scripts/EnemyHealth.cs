@@ -1,8 +1,12 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyHealth : MonoBehaviour
 {
+
+    public static event Action<float> OnEnemyKilled; // Gold als float übergeben
+
 
     public float startHealth;
     private float currentHealth;
@@ -10,38 +14,46 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private Image healthSprite;
     [SerializeField] Canvas canv;
 
-    public void UpdateHealthBar(float currHealth, float maxHealth)
-    {
-        healthSprite.fillAmount = currHealth / maxHealth;
-    }
+    [SerializeField] float rewardGold = 15f;
+
 
     void Awake()
     {
         currentHealth = startHealth;
     }
 
+
+    private void Update()
+    {
+        if(currentHealth <= 0)
+        {
+            Die();
+        }
+
+        canv.transform.rotation = Quaternion.LookRotation(canv.transform.position - Camera.main.transform.position);
+    }
+
     public void takeDamage(float weaponDamage)
     {
         currentHealth -= weaponDamage;
         UpdateHealthBar(currentHealth, startHealth);
-        Debug.Log("HEALTH: " + currentHealth);
     }
 
     public void takeCritDamage(float weaponDamage)
     {
         currentHealth -= weaponDamage * 2;
         UpdateHealthBar(currentHealth, startHealth);
-        Debug.Log("CRIT AHHH");
     }
 
-    private void Update()
+    public void UpdateHealthBar(float currHealth, float maxHealth)
     {
-        if(currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
+        healthSprite.fillAmount = currHealth / maxHealth;
+    }
 
-        canv.transform.rotation = Quaternion.LookRotation(canv.transform.position - Camera.main.transform.position);
+    private void Die()
+    {
+        OnEnemyKilled?.Invoke(rewardGold);
+        Destroy(gameObject);
     }
 
 

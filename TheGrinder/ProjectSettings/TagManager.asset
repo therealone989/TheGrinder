@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Crit
+  - Random
   layers:
   - Default
   - TransparentFX
