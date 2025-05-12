@@ -229,6 +229,10 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
+    public void RotatePlayer(float yRotation)
+    {
+        Quaternion newRotation = Quaternion.Euler(0f, yRotation, 0f);
+        rb.MoveRotation(newRotation);
+    }
 
 }

@@ -7,6 +7,7 @@ public class PlayerCam : MonoBehaviour
     public float sensY;
 
     public Transform orientation;
+    public PlayerMovement playerMovement; //Referenz zu deinem MovementScript
 
     float xRotation;
     float yRotation;
@@ -25,8 +26,12 @@ public class PlayerCam : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // rotate cam and orientation
+
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+
+        // Spieler (links/rechts) über Rigidbody!
+        playerMovement.RotatePlayer(yRotation);
+
         orientation.rotation = Quaternion.Euler(0, yRotation, 0);
 
     }
