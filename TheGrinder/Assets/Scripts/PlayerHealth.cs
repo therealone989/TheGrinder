@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class PlayerHealth : MonoBehaviour
     public float currentHealth;
 
     public HealthBar healthBar;
+
+    [Header("VFX")]
+    public VisualEffect healVFX;
 
     private void Start()
     {
@@ -27,16 +31,15 @@ public class PlayerHealth : MonoBehaviour
 
     public void Heal(float amount)
     {
-        float oldHealth = currentHealth;
         currentHealth = MathF.Min(currentHealth + amount, maxHealth);
+
         healthBar.SetHealth(currentHealth);
         healthBar.UpdateHealthNumber(currentHealth);
 
-        float healedAmount = currentHealth - oldHealth;
-        if(healedAmount > 0)
-        {
-            OnPlayerHealed?.Invoke(healedAmount);
-        }
+        OnPlayerHealed?.Invoke(amount);
+        Debug.Log("HEAL SFX");
+        healVFX.Play();
+
     }
 
 }
