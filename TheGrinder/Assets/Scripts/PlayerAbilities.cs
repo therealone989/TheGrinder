@@ -27,11 +27,7 @@ public class PlayerAbilities : MonoBehaviour
     private void Heal()
     {
         if (playerHealth == null) return;
-
-        playerHealth.currentHealth = Mathf.Min(playerHealth.currentHealth + healAmount, playerHealth.maxHealth);
-        Debug.Log("Healed for " + healAmount);
-        playerHealth.healthBar.SetHealth(playerHealth.currentHealth);
-        playerHealth.healthBar.UpdateHealthNumber(playerHealth.currentHealth);
+        playerHealth.Heal(healAmount);
     }
 
     private IEnumerator HealCooldown()

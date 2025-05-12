@@ -8,12 +8,15 @@ public class GameManager : MonoBehaviour
 
     private void OnEnable()
     {
+        // Gamemanager in Events Registrieren
         EnemyHealth.OnEnemyKilled += HandleEnemyKill;
+        PlayerHealth.OnPlayerHealed += HandlePlayerHeal;
     }
 
     private void OnDisable()
     {
         EnemyHealth.OnEnemyKilled -= HandleEnemyKill;
+        PlayerHealth.OnPlayerHealed -= HandlePlayerHeal;
     }
 
     private void Start()
@@ -54,6 +57,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogWarning("PlayerStats ist null kein Gold erhalten!");
         }
+    }
+
+    private void HandlePlayerHeal(float amount)
+    {
+        Debug.Log($"Spieler wurde geheilt um {amount}");
+
+        // - Partikeln Triggern
+        // - XP geben?
+        // - Sound abspielen?
     }
 
 }
