@@ -19,6 +19,10 @@ public class PlayerProjectile : MonoBehaviour
     private Collider col;
     private bool hasHit = false;
 
+    [Header("Crit Settings")]
+    public float critChance = 0.05f; // 5 % Crit-Chance
+    public float weakspotMultiplier = 1.5f; // Extra Schaden bei Schwachstellen
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -47,10 +51,32 @@ public class PlayerProjectile : MonoBehaviour
         var enemyHealth = collision.collider.GetComponentInParent<EnemyHealth>();
         if (enemyHealth != null)
         {
-            if (collision.collider.CompareTag("Crit"))
-                enemyHealth.takeCritDamage(baseDamage);
+            bool isWeakSpot = collision.collider.CompareTag("Crit");
+            bool isCrit = Random.value < critChance;
+
+            float finalDamage = baseDamage;
+
+            if (isWeakSpot && isCrit)
+            {
+                finalDamage *= critMultiplier * weakspotMultiplier;
+                Debug.Log(">> Weakspot CRIT! " + finalDamage);
+            }
+            else if (isWeakSpot)
+            {
+                finalDamage *= weakspotMultiplier;
+                Debug.Log(">> Weakspot hit! " + finalDamage);
+            }
+            else if (isCrit)
+            {
+                finalDamage *= critMultiplier;
+                Debug.Log(">> Normal Crit! " + finalDamage);
+            }
             else
-                enemyHealth.takeDamage(baseDamage);
+            {
+                Debug.Log(">> Normal hit. " + finalDamage);
+            }
+
+            enemyHealth.takeDamage(finalDamage);
         }
 
         // Sticky Verhalten

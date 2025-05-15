@@ -39,12 +39,6 @@ public class EnemyHealth : MonoBehaviour
         UpdateHealthBar(currentHealth, startHealth);
     }
 
-    public void takeCritDamage(float weaponDamage)
-    {
-        currentHealth -= weaponDamage * 2;
-        UpdateHealthBar(currentHealth, startHealth);
-    }
-
     public void UpdateHealthBar(float currHealth, float maxHealth)
     {
         healthSprite.fillAmount = currHealth / maxHealth;

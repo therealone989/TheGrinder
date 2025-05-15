@@ -109,6 +109,8 @@ MonoBehaviour:
   lifetime: 7
   isSticky: 1
   destroyOnImpact: 0
+  critChance: 100
+  weakspotMultiplier: 1.5
 --- !u!54 &1887419737586034293
 Rigidbody:
   m_ObjectHideFlags: 0
